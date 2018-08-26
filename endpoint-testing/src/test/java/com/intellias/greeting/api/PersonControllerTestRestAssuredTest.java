@@ -1,11 +1,11 @@
 package com.intellias.greeting.api;
 
 import com.intellias.greeting.api.vo.GreetingVO;
-import com.intellias.greeting.config.CachedContext;
 import com.intellias.greeting.config.GreetingConfig;
 import com.intellias.greeting.jpa.model.GreetingMessage;
 import com.intellias.greeting.jpa.model.Person;
 import com.intellias.greeting.jpa.repository.PersonRepository;
+import com.intellias.greeting.test.config.CachedContext;
 import com.intellias.greeting.util.FakerUtil;
 import com.intellias.greeting.util.PersonHelper;
 import org.junit.After;
@@ -19,7 +19,7 @@ import static java.lang.String.format;
 import static org.hamcrest.Matchers.equalToIgnoringCase;
 import static org.hamcrest.Matchers.is;
 
-public class PersonControllerTestRestAssured extends CachedContext {
+public class PersonControllerTestRestAssuredTest extends CachedContext {
 
     @Autowired
     private GreetingConfig greetingConfig;

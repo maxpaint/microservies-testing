@@ -1,5 +1,6 @@
 package com.intellias.greeting.config;
 
+import com.intellias.greeting.test.config.CachedContext;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 

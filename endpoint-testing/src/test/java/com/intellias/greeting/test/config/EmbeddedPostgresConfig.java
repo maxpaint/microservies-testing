@@ -1,4 +1,4 @@
-package com.intellias.greeting.config;
+package com.intellias.greeting.test.config;
 
 import com.opentable.db.postgres.embedded.EmbeddedPostgres;
 import org.springframework.boot.test.context.TestConfiguration;

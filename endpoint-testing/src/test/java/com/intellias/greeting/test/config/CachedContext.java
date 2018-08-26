@@ -1,4 +1,4 @@
-package com.intellias.greeting.config;
+package com.intellias.greeting.test.config;
 
 import com.intellias.greeting.GreetingApplication;
 import org.junit.runner.RunWith;
@@ -11,6 +11,6 @@ import org.springframework.test.context.junit4.SpringRunner;
         EmbeddedPostgresConfig.class,
 },
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class CachedContext {
+public abstract class CachedContext {
 
 }
