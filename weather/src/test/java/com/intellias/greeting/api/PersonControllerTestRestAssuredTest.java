@@ -44,17 +44,17 @@ public class PersonControllerTestRestAssuredTest extends CachedContext {
 
         // @formatter:off
         given()
-                .port(serverPort)
-                .contentType(JSON)
-                .pathParam("email", person.getEmail())
-                .when()
-                .get("/person/greeting/{email}")
-                .then()
-                .statusCode(200)
-                .body("firstName", is(person.getFirstName()))
-                .body("secondName", is(person.getLastName()))
-                .body("message", equalToIgnoringCase(greetingConfig.getGreeting()))
-        ;
+            .port(serverPort)
+            .contentType(JSON)
+            .pathParam("email", person.getEmail())
+        .when()
+            .get("/person/greeting/{email}")
+        .then()
+            .statusCode(200)
+            .body("firstName", is(person.getFirstName()))
+            .body("secondName", is(person.getLastName()))
+            .body("message", equalToIgnoringCase(greetingConfig.getGreeting()))
+    ;
 
         // @formatter:on
 
@@ -69,9 +69,9 @@ public class PersonControllerTestRestAssuredTest extends CachedContext {
                 .port(serverPort)
                 .contentType(JSON)
                 .pathParam("email", email)
-                .when()
+        .when()
                 .get("/person/greeting/{email}")
-                .then()
+        .then()
                 .statusCode(200)
                 .body("message", equalToIgnoringCase(format(GreetingVO.EMPTY, email)))
         ;
@@ -84,7 +84,7 @@ public class PersonControllerTestRestAssuredTest extends CachedContext {
     public void shouldReturnUpdateMessageForPerson() {
         Person person = PersonHelper.getPerson();
 
-        String message = "Default message";
+        String message = "Test message";
 
         person.setGreetingMessage(GreetingMessage.builder()
                 .message(message)
@@ -98,9 +98,9 @@ public class PersonControllerTestRestAssuredTest extends CachedContext {
                 .port(serverPort)
                 .contentType(JSON)
                 .pathParam("email", person.getEmail())
-                .when()
+        .when()
                 .get("/person/greeting/{email}")
-                .then()
+        .then()
                 .statusCode(200)
                 .body("firstName", is(person.getFirstName()))
                 .body("secondName", is(person.getLastName()))
