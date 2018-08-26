@@ -47,3 +47,8 @@ logging:
 
 person.greeting: Hello !
 
+weather:
+  token: 69ad735655d87512c44a5c3f919cd95b
+  url: https://api.darksky.net/forecast/
+  coordinates: 50.443231,30.525237
+

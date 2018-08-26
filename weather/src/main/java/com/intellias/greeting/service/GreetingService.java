@@ -1,45 +1,27 @@
 package com.intellias.greeting.service;
 
-import com.intellias.greeting.api.vo.GreetingVO;
-import com.intellias.greeting.config.GreetingConfig;
-import com.intellias.greeting.jpa.model.GreetingMessage;
-import com.intellias.greeting.jpa.model.Person;
-import com.intellias.greeting.jpa.repository.GreetingMessageRepository;
-import com.intellias.greeting.jpa.repository.PersonRepository;
 import com.intellias.greeting.service.dto.GreetingDto;
+import com.intellias.greeting.service.mapper.GreetingDtoMapper;
+import com.intellias.greeting.service.person.PersonGreetingService;
+import com.intellias.greeting.service.person.dto.PersonGreetingDto;
+import com.intellias.greeting.service.weather.WeatherService;
+import com.intellias.greeting.service.weather.model.Weather;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import static java.lang.String.format;
-
 @RequiredArgsConstructor
 @Service
-public class GreetingService {
+public class GreetingService implements Greeting<GreetingDto> {
 
-    private final GreetingConfig greetingConfig;
+    private final WeatherService weatherService;
 
-    private final PersonRepository personRepository;
+    private final PersonGreetingService personGreetingService;
 
-    private final GreetingMessageRepository greetingMessageRepository;
+    private final GreetingDtoMapper greetingDtoMapper;
 
-    public GreetingDto greeting(String email) {
-        return personRepository.findByEmail(email)
-                .map(person -> GreetingDto.builder()
-                        .firstName(person.getFirstName())
-                        .secondName(person.getLastName())
-                        .message(person.getGreetingMessage()
-                                .map(GreetingMessage::getMessage)
-                                .orElse(greetingConfig.getGreeting()))
-                        .build())
-                .orElse(GreetingDto.emptyGreeting(email));
-    }
-
-    public String updateGreeting(String email, String message) {
-        return personRepository.findByEmail(email)
-                .flatMap(Person::getGreetingMessage)
-                .map(gMessage -> gMessage.updateMessage(message))
-                .map(greetingMessageRepository::save)
-                .map(greetingMessage -> format("New greeting message for person %s is %s", email, message))
-                .orElse(String.format(GreetingVO.EMPTY, email));
+    public final GreetingDto greeting(String email) {
+        PersonGreetingDto personGreetingDto = personGreetingService.greeting(email);
+        Weather currentWeather = weatherService.getCurrentWeather();
+        return greetingDtoMapper.map(personGreetingDto, currentWeather);
     }
 }

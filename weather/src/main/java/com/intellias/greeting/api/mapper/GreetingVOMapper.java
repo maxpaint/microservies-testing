@@ -5,7 +5,7 @@ import com.intellias.greeting.service.dto.GreetingDto;
 import org.mapstruct.Mapper;
 
 @Mapper
-public interface GreetingMapper {
+public interface GreetingVOMapper {
 
     GreetingVO map(GreetingDto source);
 }

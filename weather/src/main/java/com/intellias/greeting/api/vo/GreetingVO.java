@@ -11,8 +11,9 @@ public class GreetingVO {
 
     public final static String EMPTY = "Who is this '%s' ? Please register in the service";
 
-    private String firstName = "";
-    private String secondName = "";
-    private String message = "";
+    private String firstName;
+    private String secondName;
+    private String message;
+    private String weatherSummary;
 
 }

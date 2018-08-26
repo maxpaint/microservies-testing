@@ -1,8 +1,10 @@
 package com.intellias.greeting.api;
 
-import com.intellias.greeting.api.mapper.GreetingMapper;
+import com.intellias.greeting.api.mapper.GreetingVOMapper;
 import com.intellias.greeting.api.vo.GreetingVO;
-import com.intellias.greeting.service.GreetingService;
+import com.intellias.greeting.service.Greeting;
+import com.intellias.greeting.service.dto.GreetingDto;
+import com.intellias.greeting.service.person.PersonGreetingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,9 +13,11 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "/person/greeting")
 public class PersonController {
 
-    private final GreetingService greetingService;
+    private final Greeting<GreetingDto> greetingService;
 
-    private final GreetingMapper mapper;
+    private final PersonGreetingService personGreeting;
+
+    private final GreetingVOMapper mapper;
 
     @GetMapping("/{email}")
     public GreetingVO greeting(@PathVariable String email) {
@@ -22,6 +26,6 @@ public class PersonController {
 
     @PutMapping("/{email}/{message}")
     public String updateGreeting(@PathVariable String email, @PathVariable String message) {
-        return greetingService.updateGreeting(email, message);
+        return personGreeting.updateGreeting(email, message);
     }
 }
