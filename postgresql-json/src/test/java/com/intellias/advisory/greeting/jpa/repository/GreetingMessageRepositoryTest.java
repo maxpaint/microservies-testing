@@ -69,8 +69,10 @@ public class GreetingMessageRepositoryTest {
 
         assertEquals(newMessage, updatedGreetingMessage.getMessage());
         assertEquals(1, greetingMessageRepository.findAll().size());
-        assertEquals(newMessage, greetingMessageRepository.findAll().get(0)
-                .getMessage().replaceAll("\"", ""));
+        assertEquals(newMessage, greetingMessageRepository.findAll().get(0).getMessage());
+
+        /*assertEquals(newMessage, greetingMessageRepository.findAll().get(0)
+                .getMessage().replaceAll("\"", ""));*/
 
     }
 
