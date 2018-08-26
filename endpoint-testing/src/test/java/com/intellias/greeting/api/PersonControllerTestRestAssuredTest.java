@@ -116,9 +116,9 @@ public class PersonControllerTestRestAssuredTest extends CachedContext {
                 .contentType(JSON)
                 .pathParam("email", person.getEmail())
                 .pathParam("message", newMessage)
-                .when()
+        .when()
                 .put("/person/greeting/{email}/{message}")
-                .then()
+        .then()
                 .statusCode(200)
                 .content(equalToIgnoringCase(format("New greeting message for person %s is %s", person.getEmail(), newMessage)))
         ;
