@@ -1,6 +1,5 @@
 package com.intellias.advisory.greeting.jpa.repository;
 
-import com.intellias.advisory.greeting.api.vo.GreetingVO;
 import com.intellias.advisory.greeting.jpa.model.GreetingMessage;
 import com.intellias.advisory.greeting.jpa.model.Person;
 import com.intellias.advisory.greeting.util.FakerUtil;
@@ -14,7 +13,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Optional;
 
-import static java.lang.String.format;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
@@ -51,23 +49,19 @@ public class GreetingMessageRepositoryTest {
                 .build();
 
         entityManager.persist(person);
-
         Optional<Person> maybePerson = personRepository.findByEmail(person.getEmail());
-
         assertThat(maybePerson, is(Optional.of(person)));
 
 
         String newMessage = "New message";
 
-        String response = maybePerson
+        GreetingMessage updatedGreetingMessage = maybePerson
                 .flatMap(Person::getGreetingMessage)
                 .map(gMessage -> gMessage.updateMessage(newMessage))
-                .map(greetingMessageRepository::save)
-                .map(greetingMessage -> format("New greeting message for person %s is %s", person.getEmail(), newMessage))
-                .orElse(format(GreetingVO.EMPTY, person.getEmail()));
+                .map(greetingMessageRepository::save).get();
 
-        assertThat(format("New greeting message for person %s is %s", person.getEmail(), newMessage), is(response));
 
+        assertEquals(newMessage, updatedGreetingMessage.getMessage());
         assertEquals(1, greetingMessageRepository.findAll().size());
         assertEquals(newMessage, greetingMessageRepository.findAll().get(0).getMessage());
 

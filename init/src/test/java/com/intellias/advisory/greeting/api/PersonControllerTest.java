@@ -2,6 +2,7 @@ package com.intellias.advisory.greeting.api;
 
 import com.intellias.advisory.greeting.api.vo.GreetingVO;
 import com.intellias.advisory.greeting.config.GreetingConfig;
+import com.intellias.advisory.greeting.jpa.model.GreetingMessage;
 import com.intellias.advisory.greeting.jpa.model.Person;
 import com.intellias.advisory.greeting.jpa.repository.GreetingMessageRepository;
 import com.intellias.advisory.greeting.jpa.repository.PersonRepository;
@@ -13,9 +14,12 @@ import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.Optional;
 
+import static com.intellias.advisory.greeting.api.vo.GreetingVO.EMPTY;
 import static java.lang.String.format;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
+import static org.mockito.AdditionalAnswers.returnsFirstArg;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.MockitoAnnotations.initMocks;
@@ -64,6 +68,30 @@ public class PersonControllerTest {
         String email = FakerUtil.getEmail();
         GreetingVO greeting = personController.greeting(email);
 
-        assertThat(greeting.getMessage(), is(format("Who is this '%s' ? Please register in the service", email)));
+        assertThat(greeting.getMessage(), is(format(EMPTY, email)));
+    }
+
+    @Test
+    public void shouldReturnUpdateMessageForPerson() {
+        String message = "Test message";
+        Person person = Person.builder()
+                .email(FakerUtil.getEmail())
+                .firstName(FakerUtil.getFirstName())
+                .lastName(FakerUtil.getLastName())
+                .greetingMessage(GreetingMessage.builder()
+                        .message(message)
+                        .build())
+                .build();
+
+        given(personRepo.findByEmail(person.getEmail()))
+                .willReturn(Optional.of(person));
+
+        given(greetingMessageRepository.save(any(GreetingMessage.class))).willAnswer(returnsFirstArg());
+
+        String newMessage = "New message";
+
+        String response = personController.updateGreeting(person.getEmail(), newMessage);
+
+        assertThat(response, is(format("New greeting message for person %s is %s", person.getEmail(), newMessage)));
     }
 }
