@@ -7,6 +7,7 @@ import com.intellias.greeting.jpa.model.Person;
 import com.intellias.greeting.jpa.repository.GreetingMessageRepository;
 import com.intellias.greeting.jpa.repository.PersonRepository;
 import com.intellias.greeting.util.FakerUtil;
+import com.intellias.greeting.util.PersonHelper;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -45,11 +46,8 @@ public class PersonControllerTest {
 
     @Test
     public void shouldReturnGreetingVOForPerson() {
-        Person person = Person.builder()
-                .email(FakerUtil.getEmail())
-                .firstName(FakerUtil.getFirstName())
-                .lastName(FakerUtil.getLastName())
-                .build();
+        Person person = PersonHelper.getPerson();
+
         given(personRepo.findByEmail(person.getEmail()))
                 .willReturn(Optional.of(person));
 

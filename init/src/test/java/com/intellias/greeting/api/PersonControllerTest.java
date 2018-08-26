@@ -50,6 +50,7 @@ public class PersonControllerTest {
                 .firstName(FakerUtil.getFirstName())
                 .lastName(FakerUtil.getLastName())
                 .build();
+
         given(personRepo.findByEmail(person.getEmail()))
                 .willReturn(Optional.of(person));
 
@@ -73,7 +74,7 @@ public class PersonControllerTest {
 
     @Test
     public void shouldReturnUpdateMessageForPerson() {
-        String message = "Test message";
+        String message = "Greeting  message";
         Person person = Person.builder()
                 .email(FakerUtil.getEmail())
                 .firstName(FakerUtil.getFirstName())

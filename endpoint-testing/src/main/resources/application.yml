@@ -45,5 +45,5 @@ logging:
       stat: debug #Turn Statistics on
       type: trace # Show all queries
 
-person.greetig: Hello !
+person.greeting: Hello !
 
