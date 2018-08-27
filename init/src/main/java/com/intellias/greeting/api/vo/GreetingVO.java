@@ -12,6 +12,7 @@ import static java.lang.String.format;
 public class GreetingVO {
 
     public final static String EMPTY = "Who is this '%s' ? Please register in the service";
+
     private final String firstName;
 
     private final String secondName;
