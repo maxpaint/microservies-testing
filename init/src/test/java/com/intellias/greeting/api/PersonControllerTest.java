@@ -2,7 +2,6 @@ package com.intellias.greeting.api;
 
 import com.intellias.greeting.api.vo.GreetingVO;
 import com.intellias.greeting.config.GreetingConfig;
-import com.intellias.greeting.jpa.model.GreetingMessage;
 import com.intellias.greeting.jpa.model.Person;
 import com.intellias.greeting.jpa.repository.GreetingMessageRepository;
 import com.intellias.greeting.jpa.repository.PersonRepository;
@@ -18,8 +17,6 @@ import static com.intellias.greeting.api.vo.GreetingVO.EMPTY;
 import static java.lang.String.format;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
-import static org.mockito.AdditionalAnswers.returnsFirstArg;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.MockitoAnnotations.initMocks;
@@ -72,7 +69,7 @@ public class PersonControllerTest {
         assertThat(greeting.getMessage(), is(format(EMPTY, email)));
     }
 
-    @Test
+    /*@Test
     public void shouldReturnUpdateMessageForPerson() {
         String message = "Greeting  message";
         Person person = Person.builder()
@@ -94,5 +91,5 @@ public class PersonControllerTest {
         String response = personController.updateGreeting(person.getEmail(), newMessage);
 
         assertThat(response, is(format("New greeting message for person %s is %s", person.getEmail(), newMessage)));
-    }
+    }*/
 }
