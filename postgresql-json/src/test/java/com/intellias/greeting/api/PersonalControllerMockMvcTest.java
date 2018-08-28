@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.intellias.greeting.api.vo.GreetingVO;
 import com.intellias.greeting.config.GreetingConfig;
 import com.intellias.greeting.jpa.model.Person;
+import com.intellias.greeting.jpa.repository.GreetingMessageRepository;
 import com.intellias.greeting.jpa.repository.PersonRepository;
 import com.intellias.greeting.util.FakerUtil;
 import lombok.SneakyThrows;
@@ -31,6 +32,9 @@ public class PersonalControllerMockMvcTest {
 
     @Autowired
     private MockMvc mvc;
+
+    @MockBean
+    private GreetingMessageRepository greetingMessageRepository;
 
     @MockBean
     private PersonRepository personRepo;

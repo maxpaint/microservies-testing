@@ -75,6 +75,7 @@ public class PersonControllerTestRestAssuredTest extends CachedContext {
         Weather weather = Weather.builder()
                 .currently(currentlyWeather)
                 .build();
+
         mockServer.expect(once(), requestTo(config.getUrl()))
                 .andRespond(withSuccess(objectMapper.writeValueAsString(weather), APPLICATION_JSON_UTF8));
 
@@ -87,9 +88,9 @@ public class PersonControllerTestRestAssuredTest extends CachedContext {
                 .port(serverPort)
                 .contentType(JSON)
                 .pathParam("email", person.getEmail())
-                .when()
+            .when()
                 .get("/person/greeting/{email}")
-                .then()
+            .then()
                 .statusCode(200)
                 .body("firstName", is(person.getFirstName()))
                 .body("secondName", is(person.getLastName()))
