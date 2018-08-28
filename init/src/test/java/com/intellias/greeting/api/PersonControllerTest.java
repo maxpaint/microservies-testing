@@ -37,7 +37,7 @@ public class PersonControllerTest {
     public void setUp() {
         initMocks(this);
         ReflectionTestUtils.setField(greetingConfig, "greeting", "Hello");
-        personController = new PersonController(greetingConfig, personRepo, greetingMessageRepository);
+        personController = new PersonController(greetingConfig, personRepo/*, greetingMessageRepository*/);
     }
 
     @Test
@@ -68,6 +68,27 @@ public class PersonControllerTest {
 
         assertThat(greeting.getMessage(), is(format(EMPTY, email)));
     }
+
+    /*@Test
+    public void shouldReturnGreetingVOForPerson2() {
+        Person person = Person.builder()
+                .email(FakerUtil.getEmail())
+                .firstName(FakerUtil.getFirstName())
+                .lastName(FakerUtil.getLastName())
+                .greetingMessage(GreetingMessage.builder()
+                        .message("Vip person message")
+                        .build())
+                .build();
+
+        given(personRepo.findByEmail(person.getEmail()))
+                .willReturn(Optional.of(person));
+
+        GreetingVO greeting = personController.greeting(person.getEmail());
+
+        assertThat(greeting.getFirstName(), is(person.getFirstName()));
+        assertThat(greeting.getSecondName(), is(person.getLastName()));
+        assertThat(greeting.getMessage(), is("Vip person message"));
+    }*/
 
     /*@Test
     public void shouldReturnUpdateMessageForPerson() {

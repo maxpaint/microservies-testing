@@ -2,11 +2,9 @@ package com.intellias.greeting.api;
 
 import com.intellias.greeting.api.vo.GreetingVO;
 import com.intellias.greeting.config.GreetingConfig;
-import com.intellias.greeting.jpa.repository.GreetingMessageRepository;
 import com.intellias.greeting.jpa.repository.PersonRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,10 +17,10 @@ public class PersonController {
 
     private final PersonRepository personRepository;
 
-    private final GreetingMessageRepository greetingMessageRepository;
+   /* private final GreetingMessageRepository greetingMessageRepository;*/
 
     @GetMapping("/{email}")
-    public GreetingVO greeting(@PathVariable String email) {
+    public GreetingVO greeting(String email) {
         return personRepository.findByEmail(email)
                 .map(person -> GreetingVO.builder()
                         .firstName(person.getFirstName())
@@ -47,7 +45,7 @@ public class PersonController {
 
 
     /*@PutMapping("/{email}/{message}")
-    public String updateGreeting(@PathVariable String email, @PathVariable String message) {
+    public String updateGreeting(String email, @PathVariable String message) {
         return personRepository.findByEmail(email)
                 .flatMap(Person::getGreetingMessage)
                 .map(gMessage -> gMessage.updateMessage(message))
