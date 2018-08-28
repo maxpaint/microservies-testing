@@ -3,7 +3,6 @@ package com.intellias.greeting.api;
 import com.intellias.greeting.api.vo.GreetingVO;
 import com.intellias.greeting.config.GreetingConfig;
 import com.intellias.greeting.jpa.model.Person;
-import com.intellias.greeting.jpa.repository.GreetingMessageRepository;
 import com.intellias.greeting.jpa.repository.PersonRepository;
 import com.intellias.greeting.util.FakerUtil;
 import org.junit.Before;
@@ -27,8 +26,8 @@ public class PersonControllerTest {
 
     private GreetingConfig greetingConfig = new GreetingConfig();
 
-    @Mock
-    private GreetingMessageRepository greetingMessageRepository;
+    /*@Mock
+    private GreetingMessageRepository greetingMessageRepository;*/
 
     @Mock
     private PersonRepository personRepo;
